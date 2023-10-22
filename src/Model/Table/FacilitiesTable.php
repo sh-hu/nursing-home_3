@@ -35,6 +35,7 @@ class FacilitiesTable extends Table
      */
     public function initialize(array $config): void
     {
+        $this->addBehavior('Timestamp');
         parent::initialize($config);
 
         $this->setTable('facilities');
@@ -48,48 +49,5 @@ class FacilitiesTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator): Validator
-    {
-        $validator
-            ->scalar('facility_type')
-            ->maxLength('facility_type', 255)
-            ->requirePresence('facility_type', 'create')
-            ->notEmptyString('facility_type');
-
-        $validator
-            ->scalar('name_of_facility')
-            ->maxLength('name_of_facility', 255)
-            ->requirePresence('name_of_facility', 'create')
-            ->notEmptyString('name_of_facility');
-
-        $validator
-            ->integer('move_in_cost')
-            ->requirePresence('move_in_cost', 'create')
-            ->notEmptyString('move_in_cost');
-
-        $validator
-            ->integer('manthly_cost')
-            ->requirePresence('manthly_cost', 'create')
-            ->notEmptyString('manthly_cost');
-
-        $validator
-            ->scalar('prefecture')
-            ->maxLength('prefecture', 255)
-            ->requirePresence('prefecture', 'create')
-            ->notEmptyString('prefecture');
-
-        $validator
-            ->scalar('address_of_facility')
-            ->maxLength('address_of_facility', 255)
-            ->requirePresence('address_of_facility', 'create')
-            ->notEmptyString('address_of_facility');
-
-        $validator
-            ->scalar('access')
-            ->maxLength('access', 255)
-            ->requirePresence('access', 'create')
-            ->notEmptyString('access');
-
-        return $validator;
-    }
+    
 }

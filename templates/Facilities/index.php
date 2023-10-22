@@ -1,3 +1,11 @@
+<?php
+$this->assign('title', 'Blog Posts');
+?>
+
+<?= $this->Html->link('Add New', ['action'=>'add'], ['class'=>['pull-right', 'fs12']]); ?>
+
+
+
 <?php $counter = 0; ?>
 <?php foreach ($facilities as $facility): ?>
     <?= $facility->id ?>

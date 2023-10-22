@@ -24,15 +24,33 @@ class FacilitiesController extends AppController
                             ->find()
                             ->order(['id' => 'DESC']);
         // デバッグを取りたい場合はtoArray()を使うと、DBbのデータのみ抽出できる
-        dd($facilities->toArray());
+        // dd($facilities->toArray());
         $this->set(compact('facilities'));
     }
 
-    public function view($slug = null)
+    public function view($id = null)
     {
-        $facilities = $this->Facilities->findBySlug($slug)->firstOrFail();
+        $facility = $this->facilities->get($id);
         $this->set(compact('facility'));
-    }   
+    }
+
+    public function add()
+    {
+        $facility = $this->Facilities->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $facility = $this->Facilities->patchEntity($facility, $this->request->getData());
+
+            // user_id の決め打ちは一時的なもので、あとで認証を構築する際に削除されます。
+            $facility->id = 1;
+
+            if ($this->Facilities->save($facility)) {
+                $this->Flash->success(__('Your facility has been saved.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('Unable to add your facility.'));
+        }
+        $this->set('facility', $facility);
+    }
 
 
 }
